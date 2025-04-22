@@ -8,18 +8,20 @@ import type * as THREE from "three"
 
 interface ModelViewerProps {
   modelPath: string
+  backgroundColor?: string
 }
 
-export default function ModelViewer({ modelPath }: ModelViewerProps) {
+export default function ModelViewer({ modelPath, backgroundColor = "#111827" }: ModelViewerProps) {
   return (
     <div className="w-full h-full">
       <Canvas shadows>
         <PerspectiveCamera makeDefault position={[0, 0, 5]} />
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
+        <color attach="background" args={[backgroundColor]} />
         <Suspense fallback={<LoadingFallback />}>
           <Model modelPath={modelPath} />
-          <Environment preset="night" background />
+          <Environment preset="night" background={false} /> {/* Keep environment lighting but not as background */}
         </Suspense>
         <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} autoRotate={true} autoRotateSpeed={0.5} />
       </Canvas>
