@@ -54,7 +54,7 @@ export default function ModelPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
-            <div className="h-[500px] relative">
+            <div className="h-full relative">
               <ModelViewer modelPath={model.modelPath} />
 
               <div className="absolute bottom-4 right-4 flex space-x-2">
@@ -131,24 +131,24 @@ export default function ModelPage() {
 
 const models = [
   {
-    id: "futuristic-car",
-    title: "Futuristic Car Concept",
+    id: "wave-surface",
+    title: "Wave Surface",
     description:
       "A sleek, aerodynamic car design inspired by cyberpunk aesthetics. Features gull-wing doors and an electric propulsion system.",
     extendedDescription:
       "This concept vehicle was designed as part of a future transportation project. The aerodynamic profile reduces drag coefficient to 0.21, while the gull-wing doors provide easy access in tight urban spaces. The electric propulsion system features four in-wheel motors providing a combined 800 horsepower with a range of 500 miles on a single charge.",
     thumbnail: "/placeholder.svg?height=400&width=600",
-    modelPath: "/assets/3d/duck.glb", // Using duck as placeholder
+    modelPath: "/assets/3d/WaveSurface.stl",
     category: "Vehicles",
     createdAt: "2023-09-15",
   },
   {
-    id: "sci-fi-helmet",
-    title: "Sci-Fi Combat Helmet",
+    id: "gameboy-keychain",
+    title: "Gameboy Keychain",
     description:
       "Military-grade helmet with integrated HUD and breathing apparatus. Designed for extreme environments and combat situations.",
     thumbnail: "/placeholder.svg?height=400&width=600",
-    modelPath: "/assets/3d/duck.glb", // Using duck as placeholder
+    modelPath: "/assets/3d/gameBoyKeychain.stl",
     category: "Props",
     createdAt: "2023-10-22",
   },
@@ -158,7 +158,7 @@ const models = [
     description:
       "Medieval castle with fantasy elements including dragon perches, magical towers, and an enchanted moat. Inspired by classic fantasy literature.",
     thumbnail: "/placeholder.svg?height=400&width=600",
-    modelPath: "/assets/3d/duck.glb", // Using duck as placeholder
+    modelPath: "/assets/3d/gameBoyKeychain.stl",
     category: "Architecture",
     createdAt: "2023-11-05",
   },
@@ -168,7 +168,7 @@ const models = [
     description:
       "Friendly household robot assistant with expressive features and modular attachments. Designed to be approachable and non-threatening.",
     thumbnail: "/placeholder.svg?height=400&width=600",
-    modelPath: "/assets/3d/duck.glb", // Using duck as placeholder
+    modelPath: "/assets/3d/gameBoyKeychain.stl",
     category: "Characters",
     createdAt: "2023-12-18",
   },
@@ -178,7 +178,7 @@ const models = [
     description:
       "Collection of extraterrestrial plant life with bioluminescent properties. Designed for a game environment set on an exoplanet.",
     thumbnail: "/placeholder.svg?height=400&width=600",
-    modelPath: "/assets/3d/duck.glb", // Using duck as placeholder
+    modelPath: "/assets/3d/gameBoyKeychain.stl",
     category: "Environment",
     createdAt: "2024-01-30",
   },
@@ -188,7 +188,7 @@ const models = [
     description:
       "Heavily armed bipedal combat mech with detailed cockpit interior and weathered exterior. Features articulated joints and weapons systems.",
     thumbnail: "/placeholder.svg?height=400&width=600",
-    modelPath: "/assets/3d/duck.glb", // Using duck as placeholder
+    modelPath: "/assets/3d/gameBoyKeychain.stl",
     category: "Vehicles",
     createdAt: "2024-02-14",
   },
