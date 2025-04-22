@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import ModelViewer from "@/components/model-viewer"
+import { toast } from "sonner"
 
 export default function ModelPage() {
   const router = useRouter()
@@ -25,6 +26,41 @@ export default function ModelPage() {
 
     setLoading(false)
   }, [params.id])
+
+  const handleDownload = async () => {
+    if (!model) return
+
+    try {
+      // Fetch the STL file
+      const response = await fetch(model.modelPath)
+      const blob = await response.blob()
+      
+      // Create a download link
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${model.title.toLowerCase().replace(/\s+/g, '-')}.stl`
+      document.body.appendChild(a)
+      a.click()
+      
+      // Clean up
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+    } catch (error) {
+      console.error('Error downloading model:', error)
+    }
+  }
+
+  const handleShare = async () => {
+    try {
+      const url = window.location.href
+      await navigator.clipboard.writeText(url)
+      toast.success('Link copied to clipboard!')
+    } catch (error) {
+      console.error('Error sharing:', error)
+      toast.error('Failed to copy link')
+    }
+  }
 
   if (loading) {
     return (
@@ -54,7 +90,7 @@ export default function ModelPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
-            <div className="h-full relative">
+            <div className="h-[500px] relative">
               <ModelViewer modelPath={model.modelPath} />
 
               <div className="absolute bottom-4 right-4 flex space-x-2">
@@ -95,30 +131,22 @@ export default function ModelPage() {
               <TabsContent value="details" className="pt-4">
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-400">Polygon Count</h3>
-                    <p className="text-white">24,580 triangles</p>
+                    <h3 className="text-sm font-medium text-gray-400">File Format</h3>
+                    <p className="text-white">STL</p>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium text-gray-400">Textures</h3>
-                    <p className="text-white">4K PBR (Diffuse, Normal, Roughness, Metallic)</p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-400">Rigging</h3>
-                    <p className="text-white">Fully rigged with 24 bones</p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-400">File Formats</h3>
-                    <p className="text-white">GLB, FBX, OBJ</p>
+                    <h3 className="text-sm font-medium text-gray-400">File Size</h3>
+                    <p className="text-white">~{Math.round(model.modelPath.includes('WaveSurface') ? 723 : 862) / 1024} KB</p>
                   </div>
                 </div>
               </TabsContent>
             </Tabs>
 
             <div className="mt-8 flex space-x-4">
-              <Button className="flex-1 bg-purple-600 hover:bg-purple-700">
+              <Button className="flex-1 bg-purple-600 hover:bg-purple-700" onClick={handleDownload}>
                 <Download className="mr-2 h-4 w-4" /> Download
               </Button>
-              <Button variant="outline" className="flex-1">
+              <Button variant="outline" className="flex-1" onClick={handleShare}>
                 <Share2 className="mr-2 h-4 w-4" /> Share
               </Button>
             </div>
